@@ -32,50 +32,61 @@
       z-index: 1000 !important;
     }
 
-/* --- Estilos para los Títulos de Sección (Padres) --- */
-.audio-header {
-  list-style: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--accent); /* Color destacado para la parada principal */
-  padding: 12px 10px 6px 5px;
-  margin-top: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria sutil */
-  cursor: default;
-  pointer-events: none; /* Inmune a clics */
-}
 
-/* --- Estilos para las Subparadas (Audios Reales) --- */
-#audio-list li[data-audio] {
-  padding: 10px 15px;
-  margin: 4px 0 4px 18px; /* El último valor (18px) los empuja hacia la derecha como submenú */
-  background-color: rgba(255, 255, 255, 0.02);
-  border-left: 2px solid var(--border); /* Una pequeña guía vertical a la izquierda */
-  border-radius: 0 8px 8px 0;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-}
 
-/* --- Efecto Hover solo para los audios reales --- */
-#audio-list li[data-audio]:hover {
-  background-color: rgba(16, 185, 129, 0.1); /* Fondo sutil con tu color --accent */
-  border-left-color: var(--accent); /* La guía se ilumina al pasar el cursor */
-  transform: translateX(4px); /* Ligero desplazamiento interactivo */
-  cursor: pointer;
-}
+body { margin: 0; font-family: sans-serif; padding-bottom: 60px; }
+    #map { height: 50vh; width: 100%; }
+ 
 
-/* --- Excepción para los audios 0, 1, 5, 7, 8 y 9 (No tienen cabecera, van en la raíz) --- */
-#audio-list li[data-audio*="/0.mp3"],
-#audio-list li[data-audio*="/1.mp3"],
-#audio-list li[data-audio*="/5.mp3"],
-#audio-list li[data-audio*="/7.mp3"],
-#audio-list li[data-audio*="/8.mp3"],
-#audio-list li[data-audio*="/9.mp3"] {
-  margin-left: 0; /* Se quedan alineados al borde principal */
-  border-left: none;
-  border-radius: 8px;
-  font-weight: 600;
-}
+/* --- Estilo base idéntico para TODOS los elementos de la lista --- */
+    #audio-list { padding: 15px; list-style: none; margin: 0; }
+    #audio-list li { 
+      padding: 12px; 
+      border-bottom: 1px solid #ddd; 
+      font-weight: bold; /* Todo en negrita uniforme */
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+    
+    /* --- Solo los elementos con audio real son interactivos --- */
+    #audio-list li[data-audio] {
+      cursor: pointer;
+    }
+    #audio-list li[data-audio]:hover { 
+      background: #f0f0f0; 
+    }
+    #audio-list li.active-track {
+      background: #e3f2fd;
+      border-left: 5px solid #007bff;
+      color: #0056b3;
+    }
+    
+    #audio-player { width: 100%; position: fixed; bottom: 0; left: 0; z-index: 9999; }
+    .marker-active {
+      filter: hue-rotate(140deg) saturate(2.5) brightness(0.9) !important;
+      z-index: 1000 !important;
+    }
+
+    /* --- Títulos de sección (Inmunes a clics, pero con idéntico diseño visual) --- */
+    .audio-header {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* --- Desplazar a la derecha ÚNICAMENTE las subparadas --- */
+    #audio-list li[data-audio] {
+      padding-left: 32px; /* Margen interno para mover el contenido a la derecha */
+    }
+
+    /* --- Excepción: los audios raíz vuelven a alinearse a la izquierda por completo --- */
+    #audio-list li[data-audio*="/0.mp3"],
+    #audio-list li[data-audio*="/1.mp3"],
+    #audio-list li[data-audio*="/5.mp3"],
+    #audio-list li[data-audio*="/7.mp3"],
+    #audio-list li[data-audio*="/8.mp3"],
+    #audio-list li[data-audio*="/9.mp3"] {
+      padding-left: 12px; /* Alineación idéntica a los títulos principales */
+    }
   </style>
 
 <!-- ========================================== -->
