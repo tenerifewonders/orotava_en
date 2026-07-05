@@ -32,42 +32,31 @@
       z-index: 1000 !important;
     }
 
-/* --- Estilos para los Títulos de Sección (Padres) --- */
-.audio-header {
-  list-style: none;
-  font-size: 0.95rem; /* Igualado al tamaño estándar */
-  font-weight: 700;
-  color: var(--accent); /* Color destacado para la parada principal */
-  padding: 12px 10px 6px 5px;
-  margin-top: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria sutil */
-  cursor: default;
-  pointer-events: none; /* Inmune a clics */
+/* --- Mantener negrita e interespaciado idéntico en TODA la lista --- */
+#audio-list li {
+  font-weight: bold !important; /* Fuerza la negrita en absolutamente todos los elementos */
 }
 
-/* --- Paradas principales (Títulos sin audio y Audios Raíz) --- */
-.audio-header,
-#audio-list li[data-audio*="/0.mp3"],
-#audio-list li[data-audio*="/1.mp3"],
-#audio-list li[data-audio*="/5.mp3"],
-#audio-list li[data-audio*="/7.mp3"],
-#audio-list li[data-audio*="/8.mp3"],
-#audio-list li[data-audio*="/9.mp3"] {
-  font-weight: bold;  /* Fuerza la negrita en todas las paradas principales */
-  margin-left: 0;     /* Alineadas completamente a la izquierda */
-}
-
-/* --- Desactivar interacciones solo en los títulos sin audio --- */
+/* --- Títulos de sección informativos (Desactivar clics) --- */
 .audio-header {
   list-style: none;
   cursor: default;
   pointer-events: none;
 }
 
-/* --- Subparadas (Audios Reales secundarios) --- */
+/* --- Desplazar a la derecha únicamente las subparadas --- */
 #audio-list li[data-audio] {
-  font-weight: normal; /* El texto vuelve a su grosor normal */
-  margin-left: 20px;   /* Se desplazan hacia la derecha creando el submenú */
+  margin-left: 20px; /* Crea el efecto de submenú */
+}
+
+/* --- Excepción para los audios raíz (0, 1, 5, 7, 8, 9) para que vuelvan a la izquierda --- */
+#audio-list li[data-audio*="/0.mp3"],
+#audio-list li[data-audio*="/1.mp3"],
+#audio-list li[data-audio*="/5.mp3"],
+#audio-list li[data-audio*="/7.mp3"],
+#audio-list li[data-audio*="/8.mp3"],
+#audio-list li[data-audio*="/9.mp3"] {
+  margin-left: 0; /* Se quedan alineados en la raíz izquierda */
 }
   </style>
 
