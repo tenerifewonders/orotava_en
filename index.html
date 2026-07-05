@@ -32,23 +32,19 @@
       z-index: 1000 !important;
     }
 
-
-
 body { margin: 0; font-family: sans-serif; padding-bottom: 60px; }
     #map { height: 50vh; width: 100%; }
- 
-
-/* --- Estilo base idéntico para TODOS los elementos de la lista --- */
+    
+    /* --- Diseño base de las cajas (Afecta a 0, 1, 2, 3... a TODOS por igual) --- */
     #audio-list { padding: 15px; list-style: none; margin: 0; }
     #audio-list li { 
       padding: 12px; 
       border-bottom: 1px solid #ddd; 
-      font-weight: bold; /* Todo en negrita uniforme */
+      font-weight: bold !important; /* Misma negrita exacta para todos */
       transition: all 0.2s ease;
-      box-sizing: border-box;
     }
     
-    /* --- Solo los elementos con audio real son interactivos --- */
+    /* --- Comportamiento interactivo (Solo para los que tienen audio) --- */
     #audio-list li[data-audio] {
       cursor: pointer;
     }
@@ -67,26 +63,27 @@ body { margin: 0; font-family: sans-serif; padding-bottom: 60px; }
       z-index: 1000 !important;
     }
 
-    /* --- Títulos de sección (Inmunes a clics, pero con idéntico diseño visual) --- */
+    /* --- Títulos principales con submenú (Inmunes a clics, pero con la misma caja) --- */
     .audio-header {
       cursor: default;
-      pointer-events: none;
+      pointer-events: none; /* No activa audios ni hace nada */
     }
 
-    /* --- Desplazar a la derecha ÚNICAMENTE las subparadas --- */
+    /* --- El submenú: Desplaza a la derecha solo las subparadas --- */
     #audio-list li[data-audio] {
-      padding-left: 32px; /* Margen interno para mover el contenido a la derecha */
+      padding-left: 35px; /* Empuja el texto hacia adentro simulando el submenú */
     }
 
-    /* --- Excepción: los audios raíz vuelven a alinearse a la izquierda por completo --- */
+    /* --- Excepción: Los audios que NO tienen submenú vuelven a la izquierda del todo --- */
     #audio-list li[data-audio*="/0.mp3"],
     #audio-list li[data-audio*="/1.mp3"],
     #audio-list li[data-audio*="/5.mp3"],
     #audio-list li[data-audio*="/7.mp3"],
     #audio-list li[data-audio*="/8.mp3"],
     #audio-list li[data-audio*="/9.mp3"] {
-      padding-left: 12px; /* Alineación idéntica a los títulos principales */
+      padding-left: 12px; /* Misma alineación izquierda exacta que los títulos */
     }
+
   </style>
 
 <!-- ========================================== -->
