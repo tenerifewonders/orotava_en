@@ -45,37 +45,29 @@
   pointer-events: none; /* Inmune a clics */
 }
 
-/* --- Estilos para las Subparadas (Audios Reales) --- */
-#audio-list li[data-audio] {
-  padding: 10px 15px;
-  margin: 4px 0 4px 18px; /* Desplazamiento hacia la derecha como submenú */
-  background-color: rgba(255, 255, 255, 0.02);
-  border-left: 2px solid var(--border); /* Guía vertical a la izquierda */
-  border-radius: 0 8px 8px 0;
-  font-size: 0.95rem; /* Igualado al tamaño estándar */
-  transition: all 0.2s ease;
-}
-
-/* --- Efecto Hover solo para los audios reales --- */
-#audio-list li[data-audio]:hover {
-  background-color: rgba(16, 185, 129, 0.1); 
-  border-left-color: var(--accent); /* La guía se ilumina al pasar el cursor */
-  transform: translateX(4px); /* Ligero desplazamiento interactivo */
-  cursor: pointer;
-}
-
-/* --- Excepción para los audios 0, 1, 5, 7, 8 y 9 (No tienen cabecera, van en la raíz) --- */
+/* --- Paradas principales (Títulos sin audio y Audios Raíz) --- */
+.audio-header,
 #audio-list li[data-audio*="/0.mp3"],
 #audio-list li[data-audio*="/1.mp3"],
 #audio-list li[data-audio*="/5.mp3"],
 #audio-list li[data-audio*="/7.mp3"],
 #audio-list li[data-audio*="/8.mp3"],
 #audio-list li[data-audio*="/9.mp3"] {
-  margin-left: 0; /* Alineados al borde principal izquierdo */
-  border-left: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.95rem; /* Igualado al tamaño estándar */
+  font-weight: bold;  /* Fuerza la negrita en todas las paradas principales */
+  margin-left: 0;     /* Alineadas completamente a la izquierda */
+}
+
+/* --- Desactivar interacciones solo en los títulos sin audio --- */
+.audio-header {
+  list-style: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* --- Subparadas (Audios Reales secundarios) --- */
+#audio-list li[data-audio] {
+  font-weight: normal; /* El texto vuelve a su grosor normal */
+  margin-left: 20px;   /* Se desplazan hacia la derecha creando el submenú */
 }
   </style>
 
