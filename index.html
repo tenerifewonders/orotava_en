@@ -32,31 +32,49 @@
       z-index: 1000 !important;
     }
 
-/* --- Mantener negrita e interespaciado idéntico en TODA la lista --- */
-#audio-list li {
-  font-weight: bold !important; /* Fuerza la negrita en absolutamente todos los elementos */
-}
-
-/* --- Títulos de sección informativos (Desactivar clics) --- */
+/* --- Estilos para los Títulos de Sección (Padres) --- */
 .audio-header {
   list-style: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--accent); /* Color destacado para la parada principal */
+  padding: 12px 10px 6px 5px;
+  margin-top: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria sutil */
   cursor: default;
-  pointer-events: none;
+  pointer-events: none; /* Inmune a clics */
 }
 
-/* --- Desplazar a la derecha únicamente las subparadas --- */
+/* --- Estilos para las Subparadas (Audios Reales) --- */
 #audio-list li[data-audio] {
-  margin-left: 20px; /* Crea el efecto de submenú */
+  padding: 10px 15px;
+  margin: 4px 0 4px 18px; /* El último valor (18px) los empuja hacia la derecha como submenú */
+  background-color: rgba(255, 255, 255, 0.02);
+  border-left: 2px solid var(--border); /* Una pequeña guía vertical a la izquierda */
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
 }
 
-/* --- Excepción para los audios raíz (0, 1, 5, 7, 8, 9) para que vuelvan a la izquierda --- */
+/* --- Efecto Hover solo para los audios reales --- */
+#audio-list li[data-audio]:hover {
+  background-color: rgba(16, 185, 129, 0.1); /* Fondo sutil con tu color --accent */
+  border-left-color: var(--accent); /* La guía se ilumina al pasar el cursor */
+  transform: translateX(4px); /* Ligero desplazamiento interactivo */
+  cursor: pointer;
+}
+
+/* --- Excepción para los audios 0, 1, 5, 7, 8 y 9 (No tienen cabecera, van en la raíz) --- */
 #audio-list li[data-audio*="/0.mp3"],
 #audio-list li[data-audio*="/1.mp3"],
 #audio-list li[data-audio*="/5.mp3"],
 #audio-list li[data-audio*="/7.mp3"],
 #audio-list li[data-audio*="/8.mp3"],
 #audio-list li[data-audio*="/9.mp3"] {
-  margin-left: 0; /* Se quedan alineados en la raíz izquierda */
+  margin-left: 0; /* Se quedan alineados al borde principal */
+  border-left: none;
+  border-radius: 8px;
+  font-weight: 600;
 }
   </style>
 
