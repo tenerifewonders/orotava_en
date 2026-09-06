@@ -153,6 +153,10 @@ body { margin: 0; font-family: sans-serif; padding-bottom: 60px; }
 </head>
 
 <body>
+  
+      
+    </div>
+  </div>
 
   <div id="map"></div>
 
@@ -246,7 +250,7 @@ body { margin: 0; font-family: sans-serif; padding-bottom: 60px; }
 
     L.tileLayer('./tiles/{z}/{x}/{y}.png', {
       minZoom: 11,
-      maxZoom: 18,
+      maxZoom: 17,
       maxNativeZoom: 17,
       tileSize: 256
     }).addTo(map);
@@ -385,30 +389,58 @@ body { margin: 0; font-family: sans-serif; padding-bottom: 60px; }
 
     let userMarker = null;
 
-    map.locate({
-      watch: true,
-      enableHighAccuracy: true,
-      maximumAge: 6000,
-      timeout: 10000
-    });
-
-    map.on('locationfound', e => {
+    function updatePosition(lat, lng) {
+      const latlng = [lat, lng];
       if (!userMarker) {
-        userMarker = L.circleMarker(e.latlng, {
+        userMarker = L.circleMarker(latlng, {
           radius: 8,
           color: "#007bff",
           fillColor: "#3fa0ff",
           fillOpacity: 0.8
         }).addTo(map);
       } else {
-        userMarker.setLatLng(e.latlng);
+        userMarker.setLatLng(latlng);
       }
-    });
+    }
+
+    if ("geolocation" in navigator) {
+      // 1. Instant coarse fix
+      navigator.geolocation.getCurrentPosition(
+        pos => updatePosition(pos.coords.latitude, pos.coords.longitude),
+        err => console.warn("[GPS Coarse]", err.message),
+        { enableHighAccuracy: false, timeout: 5000, maximumAge: 10000 }
+      );
+
+      // 2. Continuous real-time high-accuracy tracking
+      navigator.geolocation.watchPosition(
+        pos => updatePosition(pos.coords.latitude, pos.coords.longitude),
+        err => console.warn("[GPS Watch]", err.message),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 6000 }
+      );
+    }
   </script>
 
   <script>
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./service-worker.js");
+      navigator.serviceWorker.register("./service-worker.js").then(reg => {
+        if (reg.waiting) {
+          reg.waiting.postMessage({ type: "SKIP_WAITING" });
+        }
+      });
+
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches 
+                        || window.navigator.standalone === true 
+                        || document.referrer.includes('android-app://');
+
+      if (isStandalone) {
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (!refreshing) {
+            refreshing = true;
+            window.location.reload();
+          }
+        });
+      }
     }
   </script>
   <script>
@@ -419,5 +451,6 @@ body { margin: 0; font-family: sans-serif; padding-bottom: 60px; }
       document.getElementById('android-msg').style.display = 'block';
     }
   </script>
+
 </body>
 </html>
